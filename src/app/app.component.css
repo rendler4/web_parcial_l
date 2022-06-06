@@ -1,0 +1,52 @@
+body {
+    padding-left: 2%;
+    padding-right: 2%;
+    width: 100%;
+}
+
+h1 {
+    font-weight: bold;
+    text-align: center;
+}
+
+mat-form-field {
+    margin: 1% auto;
+    width: 90%;
+}
+
+.mat-tab-group {
+    margin-bottom: 48px;
+}
+
+.title_page {
+    margin: 1%;
+}
+
+.contenedor {
+    display: flex;
+    flex-direction: column;
+    margin: 3rem auto;
+    max-width: 75%;
+    box-shadow: -1px 3px 66px 0px rgba(0, 0, 0, 0.75);
+    padding: 1rem;
+    text-align: center;
+    font-weight: bold;
+    width: 100%;
+}
+
+.contenedorPrin {
+    display: flex;
+    flex-direction: column;
+    margin: 2rem auto;
+    max-width: 100%;
+    box-shadow: -1px 3px 66px 0px rgba(0, 0, 0, 0.75);
+    padding: 1rem;
+    text-align: center;
+    font-weight: bold;
+    width: 100%;
+}
+
+.buttonFormDiabete {
+    margin-left: 42%;
+    margin-top: 2%;
+}

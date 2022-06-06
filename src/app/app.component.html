@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+
+
+</head>
+
+<body>
+
+    <div class="contenedorPrin">
+
+        <mat-tab-group animationDuration="0ms">
+            <!-- TAB DIABETES -->
+            <mat-tab label="DIABETES">
+                <div class="row">
+                    <div class="col-xl">
+                        <div style="margin-top:1%">
+                            <h2>Ingresar los siguientes datos</h2>
+                        </div>
+
+                        <div class="contenedor ">
+                            <div class="row">
+                                <div class="col">
+                                    <mat-form-field>
+                                        <input matInput [(ngModel)]="pac.cedula" type="text" placeholder="Cedula">
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col">
+                                    <mat-form-field>
+                                        <input matInput type="text" [(ngModel)]="pac.nombres" placeholder="Nombre">
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col">
+                                    <mat-form-field>
+                                        <input matInput type="text" [(ngModel)]="pac.apellidos" placeholder="Apellido">
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <mat-form-field>
+                                        <input matInput type="text" [(ngModel)]="pac.eps" placeholder="EPS">
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col">
+                                    <mat-form-field appearance="fill">
+                                        <!-- <mat-label>Sintomas</mat-label> -->
+                                        <mat-select [(ngModel)]="pac.patologias" placeholder="Seleccionar Sintomas">
+                                            <mat-option *ngFor="let sintoma of sintomasArray" [value]="sintoma">{{ sintoma }}</mat-option>
+                                        </mat-select>
+
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col">
+                                    <mat-form-field>
+                                        <input matInput type="text" [(ngModel)]="nivelGlucemia" placeholder="Nivel de Glucemia">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <mat-label>{{resultadoGlucemia}}</mat-label>
+                            <mat-label>{{recomendacionesGlucemia}}</mat-label>
+
+                            <div class="row buttonFormDiabete">
+                                <div class="col-xl-3 ">
+                                    <button mat-raised-button (click)="calcularNivelGlucemia(nivelGlucemia)">Obtener Resultado</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-13">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <h2>Registro de Pacientes</h2>
+                            <table class="table" *ngIf="hayRegistros(); else sinarticulos">
+                                <thead class="">
+                                    <tr>
+                                        <th>Cedula</th>
+                                        <th>Nombres</th>
+                                        <th>Apellidos</th>
+                                        <th>EPS</th>
+                                        <th>Patologias</th>
+                                        <th>Tipo de Glucemia</th>
+                                        <th>Eliminar</th>
+                                        <th>Seleccionar</th>
+                                    </tr>
+                                </thead>
+
+                                <tr *ngFor="let pacient of pacientes">
+                                    <td>{{pacient.cedula}}</td>
+                                    <td>{{pacient.nombres}}</td>
+                                    <td>{{pacient.apellidos}}</td>
+                                    <td>{{pacient.eps}}</td>
+                                    <td>{{pacient.patologias_diabeticas}}</td>
+                                    <td>{{pacient.tipo_glucemia}}</td>
+                                    <td><button mat-raised-button (click)="baja(pacient.cedula)">Delete</button></td>
+                                    <td><button mat-raised-button (click)="seleccionar(pacient.cedula)">Select</button></td>
+
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+
+
+
+            <!-- TAB DIABETES -->
+
+
+            <mat-tab label="ANEMIA">
+                <div class="row">
+                    <div class="col-xl">
+                        <div style="margin-top:1%">
+                            <h2>Ingresar los siguientes datos</h2>
+                        </div>
+
+                        <div class="contenedor ">
+                            <div class="row">
+                                <div class="col">
+                                    <mat-form-field>
+                                        <input matInput [(ngModel)]="pacAnemia.nombresA" type="text" placeholder="Nombres">
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col">
+                                    <mat-form-field>
+                                        <input matInput type="text" [(ngModel)]="pacAnemia.apellidosA" placeholder="Apellidos">
+                                    </mat-form-field>
+                                </div>
+
+
+
+                                <div class="col">
+                                    <mat-form-field>
+                                        <input matInput type="text" [(ngModel)]="pacAnemia.correo" placeholder="Correo">
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+
+                                <div class="col">
+                                    <mat-form-field appearance="fill">
+                                        <!-- <mat-label>Sintomas</mat-label> -->
+                                        <mat-select [(ngModel)]="pacAnemia.tipo_edad" placeholder="Tipo de Edad">
+                                            <mat-option *ngFor="let tipoE of tipoEdadArray" [value]="tipoE">{{ tipoE }}</mat-option>
+                                        </mat-select>
+
+                                    </mat-form-field>
+                                </div>
+
+
+                                <div class="col">
+                                    <mat-form-field>
+                                        <input matInput type="text" [(ngModel)]="pacAnemia.edad" placeholder="Edad">
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col">
+                                    <mat-form-field appearance="fill">
+                                        <!-- <mat-label>Sintomas</mat-label> -->
+                                        <mat-select [(ngModel)]="pacAnemia.sexo" placeholder="Sexo">
+                                            <mat-option *ngFor="let gen of generoArray" [value]="gen">{{ gen }}</mat-option>
+                                        </mat-select>
+
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <mat-form-field>
+                                        <input matInput type="text" [(ngModel)]="pacAnemia.nivel_hemoglobina" placeholder="Nivel de Hemoglobina">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <mat-label>{{anemiaResultado}}</mat-label>
+
+                            <div class="row buttonFormDiabete">
+                                <div class="col-xl-3 ">
+                                    <button mat-raised-button (click)="calcularHemoglobina(pacAnemia.nivel_hemoglobina,pacAnemia.tipo_edad,pacAnemia.edad,pacAnemia.sexo)">Obtener Resultado</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-13">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <h2>Registro de Pacientes</h2>
+                            <table class="table" *ngIf="hayRegistros(); else sinarticulos">
+                                <thead class="">
+                                    <tr>
+                                        <th>N. Documento</th>
+                                        <th>Nombres</th>
+                                        <th>Apellidos</th>
+                                        <th>Nivel Hemoglobina</th>
+                                        <th>Correo</th>
+                                        <th>Tipo de edad</th>
+                                        <th>Edad</th>
+                                        <th>Sexo</th>
+                                        <th>Resultado de Hemoglobina</th>
+                                        <th>Eliminar</th>
+                                        <th>Seleccionar</th>
+                                    </tr>
+                                </thead>
+
+                                <tr *ngFor="let pacientAnemia of pacienteAnemia">
+                                    <td>{{pacientAnemia.cedula}}</td>
+                                    <td>{{pacientAnemia.nombres}}</td>
+                                    <td>{{pacientAnemia.apellidos}}</td>
+                                    <td>{{pacientAnemia.nivel_hemoglobina}}</td>
+                                    <td>{{pacientAnemia.correo}}</td>
+                                    <td>{{pacientAnemia.tipo_edad}}</td>
+                                    <td>{{pacientAnemia.edad}}</td>
+                                    <td>{{pacientAnemia.sexo}}</td>
+                                    <td>{{pacientAnemia.estado_anemia}}</td>
+                                    <td><button mat-raised-button (click)="baja(pacientAnemia.cedula)">Delete</button></td>
+                                    <td><button mat-raised-button (click)="seleccionar(pacientAnemia.cedula)">Select</button></td>
+
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </mat-tab>
+
+        </mat-tab-group>
+
+
+        <ng-template #sinarticulos>
+            <p>No hay articulos.</p>
+        </ng-template>
+
+
+    </div>
+
+
+</body>
+
+
+
+</html>
